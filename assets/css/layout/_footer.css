@@ -31,8 +31,10 @@
 
 .site-footer__logo img {
     height: auto;
-    max-height: 3.25rem;
+    max-height: 5rem;
     width: auto;
+    max-width: 100%;
+    object-fit: contain;
     opacity: 0.95;
 }
 
@@ -45,8 +47,25 @@
 
 .site-footer__social {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--space-3);
     margin-top: var(--space-6);
+}
+
+.site-footer__social-channel {
+    display: block;
+    margin-top: var(--space-4);
+    font-size: var(--text-xs);
+}
+
+.site-footer__social-channel a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.site-footer__social-channel a:hover {
+    color: var(--color-brand-gold);
 }
 
 .site-footer__social a {

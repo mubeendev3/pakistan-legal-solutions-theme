@@ -10,6 +10,7 @@ get_header();
 
     <?php get_template_part( 'template-parts/home/hero' ); ?>
     <?php get_template_part( 'template-parts/home/trust-bar' ); ?>
+    <?php get_template_part( 'template-parts/home/contact-strip' ); ?>
     <?php get_template_part( 'template-parts/home/practice-areas' ); ?>
     <?php get_template_part( 'template-parts/home/why-choose-us' ); ?>
     <?php get_template_part( 'template-parts/home/attorneys' ); ?>

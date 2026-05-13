@@ -12,25 +12,41 @@
 
                 <?php // Column 1: Firm info ?>
                 <div class="site-footer__col site-footer__col--brand">
+                    <?php
+                    $pls_footer_logo = 'logo-white.svg';
+                    foreach ( [ 'pls-logo.png', 'logo.png', 'logo-white.png' ] as $pls_logo_candidate ) {
+                        if ( file_exists( PLS_DIR . '/assets/images/' . $pls_logo_candidate ) ) {
+                            $pls_footer_logo = $pls_logo_candidate;
+                            break;
+                        }
+                    }
+                    ?>
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-footer__logo">
-                        <img src="<?php echo esc_url( PLS_ASSETS ); ?>/images/logo-white.svg"
+                        <img src="<?php echo esc_url( PLS_ASSETS . '/images/' . $pls_footer_logo ); ?>"
                              alt="<?php bloginfo( 'name' ); ?>"
-                             width="200" height="60" loading="lazy">
+                             width="160"
+                             height="160"
+                             loading="lazy"
+                             decoding="async">
                     </a>
                     <p class="site-footer__tagline">
                         <?php esc_html_e( 'Trusted legal guidance for clients across Pakistan. Your rights, our commitment.', 'pakistan-legal-solutions' ); ?>
                     </p>
                     <div class="site-footer__social">
-                        <a href="https://facebook.com/pakistanlegalsolution" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                            <?php echo pls_icon( 'facebook' ); ?>
-                        </a>
-                        <a href="https://linkedin.com/company/pakistanlegalsolution" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                            <?php echo pls_icon( 'linkedin' ); ?>
-                        </a>
-                        <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-                            <?php echo pls_icon( 'whatsapp' ); ?>
-                        </a>
+                        <?php foreach ( pls_social_profiles() as $profile ) : ?>
+                            <a href="<?php echo esc_url( $profile['url'] ); ?>"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="<?php echo esc_attr( $profile['label'] ); ?>">
+                                <?php echo pls_icon( $profile['icon'] ); ?>
+                            </a>
+                        <?php endforeach; ?>
                     </div>
+                    <p class="site-footer__social-channel">
+                        <a href="<?php echo esc_url( pls_whatsapp_channel_url() ); ?>" target="_blank" rel="noopener noreferrer">
+                            <?php esc_html_e( 'WhatsApp channel', 'pakistan-legal-solutions' ); ?>
+                        </a>
+                    </p>
                 </div>
 
                 <?php // Column 2: Quick Links ?>
@@ -73,11 +89,15 @@
                         </p>
                         <p>
                             <?php echo pls_icon( 'phone' ); ?>
-                            <a href="tel:+924235710000">+92 42 3571 0000</a>
+                            <a href="<?php echo esc_url( 'tel:' . pls_phone_primary_tel() ); ?>"><?php echo esc_html( pls_phone_primary_display() ); ?></a>
+                        </p>
+                        <p>
+                            <?php echo pls_icon( 'phone' ); ?>
+                            <a href="<?php echo esc_url( 'tel:' . pls_phone_secondary_tel() ); ?>"><?php echo esc_html( pls_phone_secondary_display() ); ?></a>
                         </p>
                         <p>
                             <?php echo pls_icon( 'mail' ); ?>
-                            <a href="mailto:info@pakistanlegalsolutions.com">info@pakistanlegalsolutions.com</a>
+                            <a href="<?php echo esc_url( 'mailto:' . pls_contact_email() ); ?>"><?php echo esc_html( pls_contact_email() ); ?></a>
                         </p>
                         <p>
                             <?php echo pls_icon( 'clock' ); ?>
@@ -118,6 +138,15 @@
     </div><!-- .site-footer__bottom -->
 
 </footer><!-- .site-footer -->
+
+<a id="pls-whatsapp-float"
+   class="pls-whatsapp-float"
+   href="<?php echo esc_url( pls_whatsapp_chat_url() ); ?>"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="<?php esc_attr_e( 'Chat on WhatsApp', 'pakistan-legal-solutions' ); ?>">
+    <?php echo pls_icon( 'whatsapp' ); ?>
+</a>
 
 <?php wp_footer(); ?>
 </body>

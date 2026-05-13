@@ -68,7 +68,7 @@ $form_error = isset( $_GET['error'] ) && '1' === $_GET['error'];
                    class="form-input"
                    required
                    autocomplete="email"
-                   placeholder="ahmad@example.com">
+                   placeholder="you@email.com">
             <span class="form-error" role="alert"></span>
         </div>
 
@@ -83,7 +83,7 @@ $form_error = isset( $_GET['error'] ) && '1' === $_GET['error'];
                    class="form-input"
                    required
                    autocomplete="tel"
-                   placeholder="+92 300 000 0000">
+                   placeholder="0304-1234007">
             <span class="form-error" role="alert"></span>
         </div>
 

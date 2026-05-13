@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
         </div>
         <div class="cta-banner__actions">
             <a class="btn btn--gold btn--lg" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Book free consultation', 'pakistan-legal-solutions' ); ?></a>
-            <a class="btn btn--outline-white btn--lg" href="tel:+924235710000"><?php esc_html_e( 'Call the office', 'pakistan-legal-solutions' ); ?></a>
+            <a class="btn btn--outline-white btn--lg" href="<?php echo esc_url( 'tel:' . pls_phone_primary_tel() ); ?>"><?php esc_html_e( 'Call the office', 'pakistan-legal-solutions' ); ?></a>
         </div>
     </div>
 </section>

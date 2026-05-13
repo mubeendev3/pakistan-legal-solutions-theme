@@ -52,15 +52,18 @@ function pls_handle_contact_form(): void {
     }
 
     // ── 5. Build and send email ────────────────────────────────────────────
-    $admin_email   = get_option( 'admin_email' );
-    $to            = 'info@pakistanlegalsolution.com'; // Change to real email
-    $subject       = sprintf(
+    $to       = pls_contact_email();
+    $from_web = pls_contact_mail_from_email();
+    if ( ! is_email( $to ) ) {
+        $to = get_option( 'admin_email' );
+    }
+    $subject  = sprintf(
         '[Pakistan Legal Solutions] New Inquiry: %s — %s',
         ucfirst( str_replace( '-', ' ', $practice_area ) ),
         $name
     );
 
-    $body  = "New contact form submission from pakistanlegalsolution.com\n";
+    $body  = "New contact form submission from " . wp_parse_url( home_url(), PHP_URL_HOST ) . "\n";
     $body .= "=================================================\n\n";
     $body .= "Name:          {$name}\n";
     $body .= "Email:         {$email}\n";
@@ -68,13 +71,13 @@ function pls_handle_contact_form(): void {
     $body .= "Practice Area: {$practice_area}\n\n";
     $body .= "Message:\n{$message}\n\n";
     $body .= "=================================================\n";
-    $body .= "Submitted: " . wp_date( 'F j, Y \a\t g:i a T' ) . "\n";
-    $body .= "IP Address: " . esc_html( $ip ) . "\n";
-    $body .= "Page: " . esc_html( wp_get_referer() ?: 'Unknown' ) . "\n";
+    $body .= 'Submitted: ' . wp_date( 'F j, Y \a\t g:i a T' ) . "\n";
+    $body .= 'IP Address: ' . esc_html( $ip ) . "\n";
+    $body .= 'Page: ' . esc_html( wp_get_referer() ?: 'Unknown' ) . "\n";
 
     $headers = [
         'Content-Type: text/plain; charset=UTF-8',
-        "From: Pakistan Legal Solutions Website <noreply@pakistanlegalsolution.com>",
+        'From: Pakistan Legal Solutions Website <' . $from_web . '>',
         "Reply-To: {$name} <{$email}>",
     ];
 
@@ -86,17 +89,25 @@ function pls_handle_contact_form(): void {
         $reply_body    = sprintf(
             "Dear %s,\n\nThank you for contacting Pakistan Legal Solutions.\n\n" .
             "We have received your inquiry regarding %s and one of our attorneys will contact you within 24 hours.\n\n" .
-            "If your matter is urgent, please call us directly at +92 42 3571 0000.\n\n" .
+            "If your matter is urgent, please call us at %s or %s.\n\n" .
             "Kind regards,\nPakistan Legal Solutions\n" .
-            "MM Alam Road, Gulberg III, Lahore, Pakistan\n" .
-            "+92 42 3571 0000 | info@pakistanlegalsolution.com",
+            "MM Alam Road, Gulberg IV, Lahore, Pakistan\n" .
+            "%s\n",
             esc_html( $name ),
-            esc_html( ucfirst( str_replace( '-', ' ', $practice_area ) ) )
+            esc_html( ucfirst( str_replace( '-', ' ', $practice_area ) ) ),
+            esc_html( pls_phone_primary_display() ),
+            esc_html( pls_phone_secondary_display() ),
+            esc_html( pls_phone_primary_display() . ' · ' . pls_phone_secondary_display() . ' · ' . pls_contact_email() )
         );
-        wp_mail( $email, $reply_subject, $reply_body, [
-            'Content-Type: text/plain; charset=UTF-8',
-            'From: Pakistan Legal Solutions <info@pakistanlegalsolution.com>',
-        ] );
+        wp_mail(
+            $email,
+            $reply_subject,
+            $reply_body,
+            [
+                'Content-Type: text/plain; charset=UTF-8',
+                'From: Pakistan Legal Solutions <' . $from_web . '>',
+            ]
+        );
     }
 
     // ── 7. Increment rate limit counter ───────────────────────────────────
@@ -105,11 +116,22 @@ function pls_handle_contact_form(): void {
     // ── 8. Respond ────────────────────────────────────────────────────────
     if ( $sent ) {
         wp_send_json_success( [
-            'message' => __( 'Thank you, ' . esc_html( $name ) . '! Your message has been received. We will contact you within 24 hours.', 'pakistan-legal-solutions' ),
+            'message' => sprintf(
+                /* translators: %s: submitter first name */
+                __( 'Thank you, %s! Your message has been received. We will contact you within 24 hours.', 'pakistan-legal-solutions' ),
+                esc_html( $name )
+            ),
         ] );
     } else {
-        wp_send_json_error( [
-            'message' => __( 'Message could not be sent. Please call us at +92 42 3571 0000.', 'pakistan-legal-solutions' ),
-        ], 500 );
+        wp_send_json_error(
+            [
+                'message' => sprintf(
+                    /* translators: %s: primary phone display */
+                    __( 'Message could not be sent. Please call us at %s.', 'pakistan-legal-solutions' ),
+                    esc_html( pls_phone_primary_display() )
+                ),
+            ],
+            500
+        );
     }
 }

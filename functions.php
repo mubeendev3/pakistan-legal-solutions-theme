@@ -25,6 +25,7 @@ require_once PLS_INC . '/setup.php';         // add_theme_support, image sizes
 require_once PLS_INC . '/menus.php';         // register_nav_menus
 require_once PLS_INC . '/enqueue.php';       // wp_enqueue_scripts
 require_once PLS_INC . '/practice-areas-catalog.php';
+require_once PLS_INC . '/theme-contact.php'; // phones, email, social URLs
 require_once PLS_INC . '/helpers.php';       // utility functions
 
 // ─── Content ──────────────────────────────────────────────────────────────────

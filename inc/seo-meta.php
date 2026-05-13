@@ -28,7 +28,7 @@ function pls_schema_markup(): void {
                 'postalCode'      => '54660',
                 'addressCountry'  => 'PK',
             ],
-            'telephone'       => '+92-42-3571-0000',
+            'telephone'       => '+92-304-1234007, +92-300-0029023',
             'openingHours'    => [ 'Sa-Th 09:00-18:00' ],
             'priceRange'      => '$$',
             'areaServed'      => 'Pakistan',

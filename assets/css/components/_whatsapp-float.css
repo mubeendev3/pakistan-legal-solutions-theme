@@ -1,0 +1,44 @@
+/* Floating WhatsApp chat (appears after scroll; see main.js) */
+.pls-whatsapp-float {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    z-index: 9998;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: var(--radius-full);
+    background: #25d366;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    box-shadow: var(--shadow-lg);
+    text-decoration: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.5rem);
+    transition:
+        opacity var(--transition-base),
+        visibility var(--transition-base),
+        transform var(--transition-base),
+        box-shadow var(--transition-fast);
+}
+
+.pls-whatsapp-float.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.pls-whatsapp-float:hover {
+    box-shadow: var(--shadow-lg), 0 0 0 3px rgba(37, 211, 102, 0.35);
+}
+
+.pls-whatsapp-float:focus-visible {
+    outline: 2px solid var(--color-text-inverse);
+    outline-offset: 3px;
+}
+
+.pls-whatsapp-float .icon {
+    width: 1.75rem;
+    height: 1.75rem;
+}

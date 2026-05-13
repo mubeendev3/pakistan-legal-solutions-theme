@@ -65,9 +65,13 @@ pls_page_hero(
                             <span class="contact-info__icon" aria-hidden="true"><?php echo pls_icon( 'phone' ); ?></span>
                             <div>
                                 <span class="contact-info__label"><?php esc_html_e( 'Phone', 'pakistan-legal-solutions' ); ?></span>
-                                <p class="contact-info__text"><a href="tel:+924235710000">+92 42 3571 0000</a></p>
+                                <p class="contact-info__text"><a href="<?php echo esc_url( 'tel:' . pls_phone_primary_tel() ); ?>"><?php echo esc_html( pls_phone_primary_display() ); ?></a></p>
+                                <p class="contact-info__text"><a href="<?php echo esc_url( 'tel:' . pls_phone_secondary_tel() ); ?>"><?php echo esc_html( pls_phone_secondary_display() ); ?></a></p>
                                 <p class="contact-info__text">
-                                    <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'WhatsApp', 'pakistan-legal-solutions' ); ?></a>
+                                    <a href="<?php echo esc_url( pls_whatsapp_chat_url() ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'WhatsApp', 'pakistan-legal-solutions' ); ?></a>
+                                </p>
+                                <p class="contact-info__text">
+                                    <a href="<?php echo esc_url( pls_whatsapp_channel_url() ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'WhatsApp channel', 'pakistan-legal-solutions' ); ?></a>
                                 </p>
                             </div>
                         </li>
@@ -76,7 +80,7 @@ pls_page_hero(
                             <div>
                                 <span class="contact-info__label"><?php esc_html_e( 'Email', 'pakistan-legal-solutions' ); ?></span>
                                 <p class="contact-info__text">
-                                    <a href="mailto:info@pakistanlegalsolutions.com">info@pakistanlegalsolutions.com</a>
+                                    <a href="<?php echo esc_url( 'mailto:' . pls_contact_email() ); ?>"><?php echo esc_html( pls_contact_email() ); ?></a>
                                 </p>
                             </div>
                         </li>

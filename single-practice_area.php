@@ -107,8 +107,11 @@ get_header();
                             <a class="btn btn--gold btn--full" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">
                                 <?php esc_html_e( 'Book free consultation', 'pakistan-legal-solutions' ); ?>
                             </a>
-                            <a class="btn btn--outline-white btn--full sidebar-card--cta__phone" href="tel:+924235710000">
-                                +92 42 3571 0000
+                            <a class="btn btn--outline-white btn--full sidebar-card--cta__phone" href="<?php echo esc_url( 'tel:' . pls_phone_primary_tel() ); ?>">
+                                <?php echo esc_html( pls_phone_primary_display() ); ?>
+                            </a>
+                            <a class="btn btn--outline-white btn--full sidebar-card--cta__phone" href="<?php echo esc_url( 'tel:' . pls_phone_secondary_tel() ); ?>">
+                                <?php echo esc_html( pls_phone_secondary_display() ); ?>
                             </a>
                         </div>
                     </aside>

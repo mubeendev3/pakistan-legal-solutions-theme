@@ -128,8 +128,25 @@ function initSmoothScroll() {
     /* Reserved for anchor smooth-scroll behaviour */
 }
 
+function initWhatsappFloat() {
+    var btn = document.getElementById( 'pls-whatsapp-float' );
+    if ( ! btn ) return;
+
+    function onScroll() {
+        if ( window.scrollY > 300 ) {
+            btn.classList.add( 'is-visible' );
+        } else {
+            btn.classList.remove( 'is-visible' );
+        }
+    }
+
+    window.addEventListener( 'scroll', onScroll, { passive: true } );
+    onScroll();
+}
+
 document.addEventListener( 'DOMContentLoaded', function() {
     initNavigation();
     initAnimations();
     initSmoothScroll();
+    initWhatsappFloat();
 } );

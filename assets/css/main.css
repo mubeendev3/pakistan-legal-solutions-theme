@@ -15,6 +15,7 @@
 @import url("layout/_page-hero.css");
 @import url("layout/_footer.css");
 @import url("components/_breadcrumb.css");
+@import url("components/_whatsapp-float.css");
 @import url("pages/_home.css");
 @import url("pages/_about.css");
 @import url("pages/_contact.css");
