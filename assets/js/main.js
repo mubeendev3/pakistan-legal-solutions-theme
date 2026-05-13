@@ -289,6 +289,94 @@ function initWhatsappFloat() {
     onScroll();
 }
 
+function initHeroConsultForm() {
+    var form    = document.getElementById( 'hero-consult-form' );
+    var card    = form ? form.closest( '.hero-consult-card' ) : null;
+    var submit  = document.getElementById( 'hero-consult-submit' );
+    var errEl   = document.getElementById( 'hero-consult-error' );
+    var okEl    = document.getElementById( 'hero-consult-success' );
+    var txtSpan = submit ? submit.querySelector( '.hero-consult-card__submit-text' ) : null;
+    var loadSpan = submit ? submit.querySelector( '.hero-consult-card__submit-loading' ) : null;
+
+    if ( ! form || ! card || ! submit || ! errEl || ! okEl ) return;
+
+    var ajaxUrl = typeof plsData !== 'undefined' && plsData.ajaxUrl ? plsData.ajaxUrl : form.action;
+
+    function phoneOk( v ) {
+        return /^[\d\s\+\-\(\)]{7,22}$/.test( String( v ).trim() );
+    }
+
+    function validate() {
+        var name = form.querySelector( '[name="name"]' );
+        var phone = form.querySelector( '[name="phone"]' );
+        var area = form.querySelector( '[name="practice_area"]' );
+        var msg = form.querySelector( '[name="message"]' );
+        if ( ! name || ! phone || ! area || ! msg ) return false;
+        if ( name.value.trim().length < 2 ) {
+            errEl.textContent = 'Please enter your full name.';
+            errEl.hidden = false;
+            return false;
+        }
+        if ( ! phoneOk( phone.value ) ) {
+            errEl.textContent = 'Please enter a valid phone number.';
+            errEl.hidden = false;
+            return false;
+        }
+        if ( ! area.value ) {
+            errEl.textContent = 'Please select a practice area.';
+            errEl.hidden = false;
+            return false;
+        }
+        if ( msg.value.trim().length < 10 ) {
+            errEl.textContent = 'Please describe your matter (at least 10 characters).';
+            errEl.hidden = false;
+            return false;
+        }
+        errEl.textContent = '';
+        errEl.hidden = true;
+        return true;
+    }
+
+    form.addEventListener( 'submit', function( e ) {
+        e.preventDefault();
+        if ( ! validate() ) return;
+
+        submit.disabled = true;
+        if ( txtSpan ) txtSpan.hidden = true;
+        if ( loadSpan ) loadSpan.removeAttribute( 'hidden' );
+
+        var fd = new FormData( form );
+
+        fetch( ajaxUrl, {
+            method: 'POST',
+            body: fd,
+        } )
+            .then( function( res ) {
+                return res.json();
+            } )
+            .then( function( data ) {
+                if ( data.success ) {
+                    card.classList.add( 'is-success' );
+                    okEl.removeAttribute( 'hidden' );
+                    errEl.hidden = true;
+                    errEl.textContent = '';
+                } else {
+                    errEl.textContent = ( data.data && data.data.message ) ? data.data.message : 'Something went wrong. Please try again.';
+                    errEl.hidden = false;
+                }
+            } )
+            .catch( function() {
+                errEl.textContent = 'Something went wrong. Please call us directly.';
+                errEl.hidden = false;
+            } )
+            .finally( function() {
+                submit.disabled = false;
+                if ( txtSpan ) txtSpan.hidden = false;
+                if ( loadSpan ) loadSpan.setAttribute( 'hidden', '' );
+            } );
+    } );
+}
+
 document.addEventListener( 'DOMContentLoaded', function() {
     initScrollProgress();
     initPageTransitions();
@@ -297,4 +385,5 @@ document.addEventListener( 'DOMContentLoaded', function() {
     initCounters();
     initSmoothScroll();
     initWhatsappFloat();
+    initHeroConsultForm();
 } );

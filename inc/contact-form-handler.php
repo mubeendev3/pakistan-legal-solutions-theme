@@ -33,6 +33,8 @@ function pls_handle_contact_form(): void {
     }
 
     // ── 4. Sanitize and validate inputs ───────────────────────────────────
+    $is_hero_quick = isset( $_POST['pls_hero_quick'] ) && '1' === sanitize_text_field( wp_unslash( (string) ( $_POST['pls_hero_quick'] ?? '' ) ) );
+
     $name          = sanitize_text_field( $_POST['name']          ?? '' );
     $email         = sanitize_email(      $_POST['email']         ?? '' );
     $phone         = sanitize_text_field( $_POST['phone']         ?? '' );
@@ -41,11 +43,25 @@ function pls_handle_contact_form(): void {
 
     $errors = [];
 
-    if ( strlen( $name ) < 2 )                 $errors[] = 'Name is required.';
-    if ( ! is_email( $email ) )                $errors[] = 'Valid email is required.';
-    if ( strlen( $phone ) < 7 )                $errors[] = 'Phone number is required.';
-    if ( empty( $practice_area ) )             $errors[] = 'Practice area is required.';
-    if ( strlen( $message ) < 10 )             $errors[] = 'Please provide more detail about your matter.';
+    if ( strlen( $name ) < 2 ) {
+        $errors[] = __( 'Name is required.', 'pakistan-legal-solutions' );
+    }
+    if ( $is_hero_quick ) {
+        if ( $email !== '' && ! is_email( $email ) ) {
+            $errors[] = __( 'Valid email is required if provided.', 'pakistan-legal-solutions' );
+        }
+    } elseif ( ! is_email( $email ) ) {
+        $errors[] = __( 'Valid email is required.', 'pakistan-legal-solutions' );
+    }
+    if ( strlen( $phone ) < 7 ) {
+        $errors[] = __( 'Phone number is required.', 'pakistan-legal-solutions' );
+    }
+    if ( empty( $practice_area ) ) {
+        $errors[] = __( 'Practice area is required.', 'pakistan-legal-solutions' );
+    }
+    if ( strlen( $message ) < 10 ) {
+        $errors[] = __( 'Please provide more detail about your matter.', 'pakistan-legal-solutions' );
+    }
 
     if ( ! empty( $errors ) ) {
         wp_send_json_error( [ 'message' => implode( ' ', $errors ) ], 422 );
@@ -66,7 +82,7 @@ function pls_handle_contact_form(): void {
     $body  = "New contact form submission from " . wp_parse_url( home_url(), PHP_URL_HOST ) . "\n";
     $body .= "=================================================\n\n";
     $body .= "Name:          {$name}\n";
-    $body .= "Email:         {$email}\n";
+    $body .= 'Email:         ' . ( is_email( $email ) ? $email : __( '(not provided — hero inquiry)', 'pakistan-legal-solutions' ) ) . "\n";
     $body .= "Phone:         {$phone}\n";
     $body .= "Practice Area: {$practice_area}\n\n";
     $body .= "Message:\n{$message}\n\n";
@@ -78,13 +94,15 @@ function pls_handle_contact_form(): void {
     $headers = [
         'Content-Type: text/plain; charset=UTF-8',
         'From: Pakistan Legal Solutions Website <' . $from_web . '>',
-        "Reply-To: {$name} <{$email}>",
     ];
+    if ( is_email( $email ) ) {
+        $headers[] = 'Reply-To: ' . sprintf( '%s <%s>', $name, $email );
+    }
 
     $sent = wp_mail( $to, $subject, $body, $headers );
 
-    // ── 6. Send auto-reply to client ───────────────────────────────────────
-    if ( $sent ) {
+    // ── 6. Send auto-reply to client (only when we have a client email) ────
+    if ( $sent && is_email( $email ) ) {
         $reply_subject = __( 'Your Inquiry Has Been Received — Pakistan Legal Solutions', 'pakistan-legal-solutions' );
         $reply_body    = sprintf(
             "Dear %s,\n\nThank you for contacting Pakistan Legal Solutions.\n\n" .

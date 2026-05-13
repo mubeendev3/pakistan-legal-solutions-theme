@@ -1126,7 +1126,7 @@ get_header();
             </h1>
 
             <p class="hero__subheading">
-                <?php esc_html_e( 'From family and corporate matters to tax, property, and constitutional questions—clear advice and strong representation. Client-first, every time.', 'pakistan-legal-solutions' ); ?>
+                <?php esc_html_e( 'From family and corporate matters to tax, property, and constitutional questions clear advice and strong representation. Client-first, every time.', 'pakistan-legal-solutions' ); ?>
             </p>
 
             <div class="hero__actions">
