@@ -40,7 +40,15 @@ get_header();
                                 <?php the_content(); ?>
                             <?php else : ?>
                                 <div class="pa-placeholder">
-                                    <?php echo pls_practice_area_placeholder_body_html( get_the_title() ); ?>
+                                    <?php
+                                    $pa_slug = (string) get_post_field( 'post_name', $post_id );
+                                    $pa_body  = pls_practice_area_default_content( $pa_slug );
+                                    if ( $pa_body !== '' ) {
+                                        echo wp_kses_post( $pa_body );
+                                    } else {
+                                        echo wp_kses_post( pls_practice_area_placeholder_body_html( get_the_title() ) );
+                                    }
+                                    ?>
                                 </div>
                             <?php endif; ?>
                         </div>
