@@ -1,0 +1,19 @@
+/*
+Theme Name:         Pakistan Legal Solutions
+Theme URI:          https://pakistanlegalsolution.com
+Author:             Mubeen Mehmood
+Author URI:         https://mubeenmehmood.com
+Description:        Custom professional theme for Pakistan Legal Solutions (Lahore-based; serving clients across Pakistan). Built with modern PHP, semantic HTML5, and vanilla JavaScript.
+Version:            0.1.0
+Requires at least:  6.4
+Tested up to:       6.5
+Requires PHP:       8.2
+License:            Proprietary
+Text Domain:        pakistan-legal-solutions
+Tags:               custom-header, custom-menu, featured-images, threaded-comments, translation-ready
+*/
+
+/*
+  Theme scaffold: design CSS lives in assets/css/main.css
+  (to be enqueued from inc/enqueue.php when implemented).
+*/

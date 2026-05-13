@@ -1,0 +1,7 @@
+﻿# Pakistan Legal Solutions — translation template (scaffold)
+# Copyright (C) YEAR Pakistan Legal Solutions
+msgid ""
+msgstr ""
+"Project-Id-Version: Pakistan Legal Solutions 0.1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
