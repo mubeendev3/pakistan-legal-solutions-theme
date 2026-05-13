@@ -6,7 +6,7 @@
  * - Loading state on button
  */
 
-export function initContactForm() {
+function initContactForm() {
 
     const form     = document.getElementById( 'contact-form' );
     const submit   = document.getElementById( 'cf-submit' );

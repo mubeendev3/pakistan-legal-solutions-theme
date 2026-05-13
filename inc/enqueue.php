@@ -36,22 +36,6 @@ function pls_enqueue_scripts(): void {
         PLS_VERSION,
         [ 'in_footer' => true, 'strategy' => 'defer' ]
     );
-    
-    add_filter(
-        'script_loader_tag',
-        static function ( string $tag, string $handle ): string {
-            if ( ! in_array( $handle, [ 'pls-main', 'pls-contact' ], true ) ) {
-                return $tag;
-            }
-            if ( str_contains( $tag, 'type="module"' ) || str_contains( $tag, "type='module'" ) ) {
-                return $tag;
-            }
-            $filtered = preg_replace( '/<script\b/i', '<script type="module"', $tag, 1 );
-            return is_string( $filtered ) ? $filtered : $tag;
-        },
-        10,
-        2
-    );
 
     // Pass PHP data to JavaScript (AJAX URL, nonce, etc.)
     wp_localize_script( 'pls-main', 'plsData', [

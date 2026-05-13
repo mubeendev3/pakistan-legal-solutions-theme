@@ -1,5 +1,5 @@
 ﻿/**
- * Navigation Module
+ * Navigation Module (ES module copy — theme loads logic from ../main.js instead).
  * - Sticky header on scroll
  * - Mobile menu open/close
  * - Keyboard accessibility (Escape to close)
@@ -16,19 +16,20 @@ export function initNavigation() {
 
     if ( ! header ) return;
 
-    // ── Sticky header ──────────────────────────────────────────────────────
-    const stickyObserver = new IntersectionObserver(
-        ( [ entry ] ) => {
-            header.classList.toggle( 'site-header--scrolled', ! entry.isIntersecting );
-        },
-        { rootMargin: `-${ header.offsetHeight }px 0px 0px 0px` }
-    );
+    // ── Sticky header (skip if unsupported — do not block mobile menu init) ─
+    if ( typeof IntersectionObserver !== 'undefined' ) {
+        const stickyObserver = new IntersectionObserver(
+            ( [ entry ] ) => {
+                header.classList.toggle( 'site-header--scrolled', ! entry.isIntersecting );
+            },
+            { rootMargin: `-${ header.offsetHeight }px 0px 0px 0px` }
+        );
 
-    // Observe a sentinel element at the top of the page
-    const sentinel = document.createElement( 'div' );
-    sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px;pointer-events:none;';
-    document.body.prepend( sentinel );
-    stickyObserver.observe( sentinel );
+        const sentinel = document.createElement( 'div' );
+        sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px;pointer-events:none;';
+        document.body.prepend( sentinel );
+        stickyObserver.observe( sentinel );
+    }
 
     // ── Mobile menu ────────────────────────────────────────────────────────
     if ( ! toggle || ! menu ) return;
@@ -40,16 +41,24 @@ export function initNavigation() {
         menu.classList.add( 'is-open' );
         menu.setAttribute( 'aria-hidden', 'false' );
         toggle.setAttribute( 'aria-expanded', 'true' );
-        overlay?.classList.add( 'is-visible' );
-        document.body.style.overflow = 'hidden'; // Lock scroll
-        closeBtn?.focus();
+        if ( overlay ) {
+            overlay.classList.add( 'is-visible' );
+            overlay.setAttribute( 'aria-hidden', 'false' );
+        }
+        document.body.style.overflow = 'hidden';
+        if ( closeBtn ) {
+            closeBtn.focus();
+        }
     }
 
     function closeMenu() {
         menu.classList.remove( 'is-open' );
         menu.setAttribute( 'aria-hidden', 'true' );
         toggle.setAttribute( 'aria-expanded', 'false' );
-        overlay?.classList.remove( 'is-visible' );
+        if ( overlay ) {
+            overlay.classList.remove( 'is-visible' );
+            overlay.setAttribute( 'aria-hidden', 'true' );
+        }
         document.body.style.overflow = '';
         if ( ! mqDesktop.matches ) {
             toggle.focus();
@@ -57,24 +66,31 @@ export function initNavigation() {
     }
 
     toggle.addEventListener( 'click', openMenu );
-    closeBtn?.addEventListener( 'click', ( e ) => {
-        e.preventDefault();
-        closeMenu();
-    } );
-    overlay?.addEventListener( 'click', closeMenu );
 
-    // Close on Escape key
+    if ( closeBtn ) {
+        closeBtn.addEventListener( 'click', ( e ) => {
+            e.preventDefault();
+            closeMenu();
+        } );
+    }
+    if ( overlay ) {
+        overlay.addEventListener( 'click', closeMenu );
+    }
+
     document.addEventListener( 'keydown', ( e ) => {
         if ( e.key === 'Escape' && menu.classList.contains( 'is-open' ) ) {
             closeMenu();
         }
     } );
 
-    // Resize to desktop: reset state and scroll lock (CSS also hides drawer)
     function onViewportChange() {
         if ( mqDesktop.matches && menu.classList.contains( 'is-open' ) ) {
             closeMenu();
         }
     }
-    mqDesktop.addEventListener( 'change', onViewportChange );
+    if ( typeof mqDesktop.addEventListener === 'function' ) {
+        mqDesktop.addEventListener( 'change', onViewportChange );
+    } else if ( typeof mqDesktop.addListener === 'function' ) {
+        mqDesktop.addListener( onViewportChange );
+    }
 }
