@@ -1,8 +1,8 @@
 <?php
 /**
- * Practice area card (static data: title, URL, two lines, icon key).
+ * Practice area card: title, two-line excerpt, icon, primary CTA.
  *
- * Expected vars (via pls_get_part): $pa_title, $pa_url, $pa_lines, $pa_icon
+ * Variables (via pls_get_part): $pa_title, $pa_url, $pa_lines, $pa_icon
  *
  * @package PakistanLegalSolutions
  */
@@ -23,7 +23,9 @@ $pa_icon  = $pa_icon ?? 'civil-law';
         </h3>
         <div class="pa-card__excerpt pa-card__excerpt--stack">
             <?php foreach ( array_slice( $pa_lines, 0, 2 ) as $line ) : ?>
-                <p><?php echo esc_html( $line ); ?></p>
+                <?php if ( '' !== trim( (string) $line ) ) : ?>
+                    <p><?php echo esc_html( $line ); ?></p>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
         <div class="pa-card__actions">

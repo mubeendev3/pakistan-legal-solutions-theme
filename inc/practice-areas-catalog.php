@@ -165,3 +165,126 @@ function pls_get_practice_areas_catalog(): array {
         ],
     ];
 }
+
+/**
+ * Icon key for inline SVG (matches keys in pls_the_pa_icon()).
+ */
+function pls_practice_area_icon_key_for_slug( string $slug ): string {
+    foreach ( pls_get_practice_areas_catalog() as $row ) {
+        if ( $row['slug'] === $slug ) {
+            return $row['icon'];
+        }
+    }
+    return $slug;
+}
+
+/**
+ * Intro paragraph for single template: ACF card excerpt, then post excerpt.
+ */
+function pls_practice_area_intro_source_text( int $post_id ): string {
+    if ( function_exists( 'get_field' ) ) {
+        $acf = trim( wp_strip_all_tags( (string) get_field( 'pa_card_excerpt', $post_id ) ) );
+        if ( $acf !== '' ) {
+            return $acf;
+        }
+    }
+    $excerpt = get_the_excerpt( $post_id );
+    if ( $excerpt ) {
+        return trim( wp_strip_all_tags( $excerpt ) );
+    }
+    return '';
+}
+
+/**
+ * Up to two lines for cards (homepage / listing).
+ *
+ * @return array{0:string,1:string}
+ */
+function pls_practice_area_card_body_lines( int $post_id ): array {
+    $acf_raw = function_exists( 'get_field' ) ? (string) get_field( 'pa_card_excerpt', $post_id ) : '';
+    $acf_txt = trim( wp_strip_all_tags( $acf_raw ) );
+    if ( $acf_txt !== '' ) {
+        $parts = preg_split( '/\r\n|\r|\n/', $acf_raw, -1, PREG_SPLIT_NO_EMPTY );
+        $parts = array_values(
+            array_filter(
+                array_map(
+                    static function ( $p ) {
+                        return trim( wp_strip_all_tags( (string) $p ) );
+                    },
+                    is_array( $parts ) ? $parts : []
+                )
+            )
+        );
+        if ( count( $parts ) >= 2 ) {
+            return [ $parts[0], $parts[1] ];
+        }
+        if ( count( $parts ) === 1 ) {
+            $sentences = preg_split( '/(?<=[.!?])\s+/', $parts[0], 3, PREG_SPLIT_NO_EMPTY );
+            if ( is_array( $sentences ) && count( $sentences ) >= 2 ) {
+                return [ trim( $sentences[0] ), trim( $sentences[1] ) ];
+            }
+            return [ $parts[0], '' ];
+        }
+    }
+
+    $excerpt = get_the_excerpt( $post_id );
+    if ( ! $excerpt ) {
+        $excerpt = (string) get_post_field( 'post_content', $post_id );
+        $excerpt = wp_trim_words( wp_strip_all_tags( $excerpt ), 40, '' );
+    } else {
+        $excerpt = wp_strip_all_tags( $excerpt );
+    }
+    $excerpt = trim( $excerpt );
+
+    if ( $excerpt !== '' ) {
+        $sentences = preg_split( '/(?<=[.!?])\s+/', $excerpt, 3, PREG_SPLIT_NO_EMPTY );
+        if ( is_array( $sentences ) && count( $sentences ) >= 2 ) {
+            return [ trim( $sentences[0] ), trim( $sentences[1] ) ];
+        }
+        $words = preg_split( '/\s+/', $excerpt, -1, PREG_SPLIT_NO_EMPTY );
+        if ( is_array( $words ) && count( $words ) > 12 ) {
+            $half = (int) ceil( count( $words ) / 2 );
+            return [
+                implode( ' ', array_slice( $words, 0, $half ) ),
+                implode( ' ', array_slice( $words, $half ) ),
+            ];
+        }
+        return [ $excerpt, '' ];
+    }
+
+    $slug = (string) get_post_field( 'post_name', $post_id );
+    foreach ( pls_get_practice_areas_catalog() as $row ) {
+        if ( $row['slug'] === $slug ) {
+            return $row['lines'];
+        }
+    }
+
+    return [
+        __( 'Strategic advice and representation tailored to your situation in Pakistan and across borders where your matter reaches.', 'pakistan-legal-solutions' ),
+        '',
+    ];
+}
+
+/**
+ * Whether the block editor body has user-visible text.
+ */
+function pls_practice_area_has_editor_content( int $post_id ): bool {
+    $raw = (string) get_post_field( 'post_content', $post_id );
+    return strlen( trim( wp_strip_all_tags( $raw ) ) ) > 0;
+}
+
+/**
+ * Default body HTML when the practice area post content is empty.
+ */
+function pls_practice_area_placeholder_body_html( string $title ): string {
+    $p1 = sprintf(
+        /* translators: %s: practice area title */
+        __( 'Pakistan Legal Solutions advises clients on %s with an emphasis on clear strategy, disciplined documentation, and positions that stand up before regulators and courts.', 'pakistan-legal-solutions' ),
+        $title
+    );
+    $p2 = __(
+        'Whether your matter is domestic or has a cross-border element, we help you understand risk, preserve evidence, and choose a proportionate path—in negotiation, arbitration, or litigation.',
+        'pakistan-legal-solutions'
+    );
+    return '<p>' . esc_html( $p1 ) . '</p><p>' . esc_html( $p2 ) . '</p>';
+}

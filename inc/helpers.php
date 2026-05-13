@@ -2,15 +2,20 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Get template part with data passed as variables.
- * Usage: pls_get_part( 'components/attorney-card', [ 'post_id' => 5 ] );
+ * Load a template part with scoped variables (same scope as include — unlike get_template_part alone).
+ *
+ * Usage: pls_get_part( 'components/practice-area-card', [ 'pa_title' => '…' ] );
  */
 function pls_get_part( string $part, array $data = [] ): void {
+    $relative = 'template-parts/' . $part . '.php';
+    $file      = locate_template( $relative, false, false );
+    if ( ! $file || ! is_readable( $file ) ) {
+        return;
+    }
     if ( $data ) {
-        // Extract variables so template can use $variable_name directly
         extract( $data, EXTR_SKIP ); // phpcs:ignore WordPress.PHP.DontExtract
     }
-    get_template_part( 'template-parts/' . $part );
+    include $file;
 }
 
 /**
