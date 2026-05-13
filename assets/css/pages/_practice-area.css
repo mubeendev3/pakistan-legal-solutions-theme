@@ -1,2 +1,37 @@
-﻿/* Scaffold — styles pending. */
+﻿/* Practice areas archive (disabled by default) + catalog page layout */
 
+.pa-grid {
+    display: grid;
+    gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+    .pa-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .pa-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.pa-catalog {
+    background: var(--color-bg-cream);
+    padding-block: var(--space-12);
+}
+
+.pa-catalog-intro {
+    padding-block: var(--space-10);
+    background: var(--color-bg-white);
+}
+
+.site-main--practice-areas .pa-catalog {
+    padding-top: 0;
+}
+
+.pa-archive {
+    padding-block: var(--space-12);
+    background: var(--color-bg-cream);
+}

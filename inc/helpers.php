@@ -78,7 +78,7 @@ function pls_breadcrumb(): void {
             </li>
             <?php if ( is_singular( 'practice_area' ) ) : ?>
                 <li class="breadcrumb__item">
-                    <a href="<?php echo esc_url( home_url( '/practice-areas/' ) ); ?>">
+                    <a href="<?php echo esc_url( pls_practice_areas_index_url() ); ?>">
                         <?php esc_html_e( 'Practice Areas', 'pakistan-legal-solutions' ); ?>
                     </a>
                 </li>

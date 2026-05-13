@@ -23,7 +23,7 @@ function pls_primary_nav_fallback( array $args = [] ): void {
     } else {
         $menu_id = str_contains( $menu_class, 'mobile-menu' ) ? 'mobile-fallback-menu' : 'primary-menu';
     }
-    $pa_url     = get_post_type_archive_link( 'practice_area' ) ?: home_url( '/practice-areas/' );
+    $pa_url     = pls_practice_areas_index_url();
 
     $links = [
         [ 'label' => __( 'Home', 'pakistan-legal-solutions' ), 'url' => home_url( '/' ) ],
@@ -47,7 +47,7 @@ function pls_primary_nav_fallback( array $args = [] ): void {
 function pls_footer_nav_fallback( array $args = [] ): void {
     $menu_class = isset( $args['menu_class'] ) ? (string) $args['menu_class'] : 'site-footer__nav';
     $location   = isset( $args['theme_location'] ) ? (string) $args['theme_location'] : '';
-    $pa_url     = get_post_type_archive_link( 'practice_area' ) ?: home_url( '/practice-areas/' );
+    $pa_url     = pls_practice_areas_index_url();
 
     $links = [];
     if ( 'footer-1' === $location ) {

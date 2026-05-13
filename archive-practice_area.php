@@ -1,7 +1,10 @@
 <?php
 /**
- * Practice Areas Archive
- * Accessible at: /practice-areas/
+ * Practice Areas Archive template.
+ *
+ * The `practice_area` post type has `has_archive` disabled so a Page with slug
+ * `practice-areas` can use `template-practice-areas.php` without URL clashes.
+ * Re-enable `has_archive` in inc/custom-post-types.php if you need this file live.
  */
 get_header();
 ?>

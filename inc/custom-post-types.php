@@ -23,7 +23,8 @@ function pls_register_post_types(): void {
         'query_var'           => true,
         'rewrite'             => [ 'slug' => 'practice-areas', 'with_front' => false ],
         'capability_type'     => 'post',
-        'has_archive'         => 'practice-areas',
+        // Archive disabled so a Page with slug `practice-areas` can host the listing template without rewrite clashes. Singles remain at /practice-areas/{slug}/.
+        'has_archive'         => false,
         'hierarchical'        => false,
         'menu_position'       => 5,
         'menu_icon'           => 'dashicons-portfolio',

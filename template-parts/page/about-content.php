@@ -166,7 +166,7 @@ pls_page_hero(
 
         <div class="about-team__actions">
             <a class="btn btn--primary" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Book a consultation', 'pakistan-legal-solutions' ); ?></a>
-            <a class="btn btn--outline" href="<?php echo esc_url( get_post_type_archive_link( 'practice_area' ) ?: home_url( '/practice-areas/' ) ); ?>"><?php esc_html_e( 'Explore practice areas', 'pakistan-legal-solutions' ); ?></a>
+            <a class="btn btn--outline" href="<?php echo esc_url( pls_practice_areas_index_url() ); ?>"><?php esc_html_e( 'Explore practice areas', 'pakistan-legal-solutions' ); ?></a>
         </div>
     </div>
 </section>
