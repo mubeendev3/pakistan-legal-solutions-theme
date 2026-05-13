@@ -173,4 +173,3 @@ pls_page_hero(
 
 <?php
 get_template_part( 'template-parts/home/cta-banner' );
-get_template_part( 'template-parts/home/contact-strip' );

@@ -122,6 +122,7 @@
     background: rgba(17, 17, 17, 0.55);
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity var(--transition-base), visibility var(--transition-base);
     z-index: var(--z-overlay);
 }
@@ -129,6 +130,7 @@
 .mobile-menu-overlay.is-visible {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
 .mobile-menu {
@@ -140,6 +142,7 @@
     background: var(--color-bg-white);
     box-shadow: var(--shadow-xl);
     transform: translateX(100%);
+    pointer-events: none;
     transition: transform var(--transition-base);
     z-index: var(--z-modal);
     overflow-y: auto;
@@ -147,9 +150,19 @@
 
 .mobile-menu.is-open {
     transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* Drawer is for small screens only; primary nav handles ≥960px */
+@media (min-width: 960px) {
+    .mobile-menu,
+    .mobile-menu-overlay {
+        display: none;
+    }
 }
 
 .mobile-menu__inner {
+    position: relative;
     padding: var(--space-8) var(--space-6);
     display: flex;
     flex-direction: column;
@@ -160,6 +173,7 @@
     position: absolute;
     top: var(--space-4);
     right: var(--space-4);
+    z-index: 2;
     font-size: 1.75rem;
     line-height: 1;
     color: var(--color-text-muted);

@@ -33,7 +33,10 @@ export function initNavigation() {
     // ── Mobile menu ────────────────────────────────────────────────────────
     if ( ! toggle || ! menu ) return;
 
+    const mqDesktop = window.matchMedia( '(min-width: 960px)' );
+
     function openMenu() {
+        if ( mqDesktop.matches ) return;
         menu.classList.add( 'is-open' );
         menu.setAttribute( 'aria-hidden', 'false' );
         toggle.setAttribute( 'aria-expanded', 'true' );
@@ -48,11 +51,16 @@ export function initNavigation() {
         toggle.setAttribute( 'aria-expanded', 'false' );
         overlay?.classList.remove( 'is-visible' );
         document.body.style.overflow = '';
-        toggle.focus();
+        if ( ! mqDesktop.matches ) {
+            toggle.focus();
+        }
     }
 
     toggle.addEventListener( 'click', openMenu );
-    closeBtn?.addEventListener( 'click', closeMenu );
+    closeBtn?.addEventListener( 'click', ( e ) => {
+        e.preventDefault();
+        closeMenu();
+    } );
     overlay?.addEventListener( 'click', closeMenu );
 
     // Close on Escape key
@@ -61,4 +69,12 @@ export function initNavigation() {
             closeMenu();
         }
     } );
+
+    // Resize to desktop: reset state and scroll lock (CSS also hides drawer)
+    function onViewportChange() {
+        if ( mqDesktop.matches && menu.classList.contains( 'is-open' ) ) {
+            closeMenu();
+        }
+    }
+    mqDesktop.addEventListener( 'change', onViewportChange );
 }

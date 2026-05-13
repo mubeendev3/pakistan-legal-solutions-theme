@@ -15,7 +15,6 @@ get_header();
     <?php get_template_part( 'template-parts/home/attorneys' ); ?>
     <?php get_template_part( 'template-parts/home/testimonials' ); ?>
     <?php get_template_part( 'template-parts/home/cta-banner' ); ?>
-    <?php get_template_part( 'template-parts/home/contact-strip' ); ?>
 
 </main>
 

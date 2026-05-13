@@ -8,7 +8,8 @@ defined( 'ABSPATH' ) || exit;
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-label="<?php esc_attr_e( 'Mobile menu', 'pakistan-legal-solutions' ); ?>">
     <div class="mobile-menu__inner">
 
-        <button class="mobile-menu__close"
+        <button type="button"
+                class="mobile-menu__close"
                 id="mobile-menu-close"
                 aria-label="<?php esc_attr_e( 'Close menu', 'pakistan-legal-solutions' ); ?>">
             &times;

@@ -58,7 +58,8 @@
         </div>
 
         <?php // Mobile menu toggle ?>
-        <button class="mobile-menu-toggle"
+        <button type="button"
+                class="mobile-menu-toggle"
                 id="mobile-menu-toggle"
                 aria-expanded="false"
                 aria-controls="mobile-menu"
@@ -70,7 +71,10 @@
 
     </div><!-- .site-header__inner -->
 
-    <?php // Mobile menu ?>
-    <?php get_template_part( 'template-parts/header/mobile-menu' ); ?>
-
 </header><!-- .site-header -->
+
+<?php
+// Off-canvas markup lives outside .site-header so position:fixed is viewport-relative
+// (backdrop-filter on the header creates a fixed containing block for descendants).
+get_template_part( 'template-parts/header/mobile-menu' );
+?>
