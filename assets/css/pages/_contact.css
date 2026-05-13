@@ -1,2 +1,186 @@
-﻿/* Scaffold — styles pending. */
+﻿/* ── Contact intro (optional page content below) ───────────── */
+.site-main--contact .contact-intro {
+    background: var(--color-bg-cream);
+    border-bottom: 1px solid var(--color-border-light);
+}
 
+.contact-intro__prose {
+    max-width: 48rem;
+    margin-inline: auto;
+    margin-top: var(--space-8);
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+.contact-intro__prose a {
+    color: var(--color-brand-primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.contact-intro__prose a:hover {
+    color: var(--color-brand-primary-dark);
+}
+
+/* ── Panel + two-column layout ─────────────────────────────── */
+.contact-panel {
+    background: var(--color-bg-light);
+    padding-block: var(--space-20);
+}
+
+.contact-layout {
+    display: grid;
+    gap: var(--space-8);
+    align-items: start;
+}
+
+@media (min-width: 1024px) {
+    .contact-layout {
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: var(--space-10);
+    }
+}
+
+.contact-card {
+    background: var(--color-bg-white);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: clamp(var(--space-6), 3vw, var(--space-10));
+    box-shadow: var(--shadow-md);
+}
+
+.contact-card--accent {
+    background: linear-gradient(180deg, var(--color-bg-white) 0%, var(--color-bg-cream) 100%);
+    border-color: var(--color-border-medium);
+}
+
+.contact-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-3);
+    color: var(--color-text-primary);
+}
+
+.contact-card__lead {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-8);
+}
+
+/* ── Office list ───────────────────────────────────────────── */
+.contact-info {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.contact-info__item {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+}
+
+.contact-info__icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-md);
+    background: rgba(139, 26, 26, 0.08);
+    color: var(--color-brand-primary);
+}
+
+.contact-info__icon .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.contact-info__label {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-brand-gold-dark);
+    margin-bottom: var(--space-2);
+}
+
+.contact-info__text {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+.contact-info__text a {
+    color: var(--color-brand-primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.contact-info__text a:hover {
+    color: var(--color-brand-primary-dark);
+}
+
+/* ── Map ───────────────────────────────────────────────────── */
+.contact-map {
+    margin-top: var(--space-8);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border-light);
+    box-shadow: var(--shadow-sm);
+    background: var(--color-bg-light);
+}
+
+.contact-map__frame {
+    display: block;
+    width: 100%;
+    border: 0;
+    vertical-align: middle;
+}
+
+/* ── Trust strip (matches home trust-bar rhythm) ───────────── */
+.contact-trust {
+    background: var(--color-bg-dark);
+    color: rgba(255, 255, 255, 0.88);
+    padding-block: var(--space-10);
+    border-bottom: 3px solid var(--color-brand-gold);
+}
+
+.contact-trust__grid {
+    display: grid;
+    gap: var(--space-8);
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .contact-trust__grid {
+        grid-template-columns: repeat(3, 1fr);
+        text-align: left;
+    }
+}
+
+.contact-trust__title {
+    font-weight: 700;
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-brand-gold);
+    display: block;
+    margin-bottom: var(--space-2);
+}
+
+.contact-trust__text {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.55;
+    margin: 0;
+}

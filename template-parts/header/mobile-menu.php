@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
             'menu_class'     => 'mobile-menu__list',
             'container'      => false,
             'depth'          => 2,
-            'fallback_cb'    => false,
+            'fallback_cb'    => 'pls_primary_nav_fallback',
         ] );
         ?>
 

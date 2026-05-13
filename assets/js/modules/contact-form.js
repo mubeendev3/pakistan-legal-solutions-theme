@@ -18,7 +18,7 @@ export function initContactForm() {
     const validators = {
         name:          ( v ) => v.trim().length >= 2,
         email:         ( v ) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( v ),
-        phone:         ( v ) => /^[\d\s\+\-\(\)]{7,15}$/.test( v.trim() ),
+        phone:         ( v ) => /^[\d\s\+\-\(\)]{7,22}$/.test( v.trim() ),
         practice_area: ( v ) => v !== '',
         message:       ( v ) => v.trim().length >= 10,
     };

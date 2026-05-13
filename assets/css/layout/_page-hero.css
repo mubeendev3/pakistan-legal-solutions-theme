@@ -1,0 +1,81 @@
+/* Inner pages — title band (About, Contact, legal pages, etc.) */
+.page-hero {
+    position: relative;
+    padding-block: var(--space-16) var(--space-12);
+    color: var(--color-text-inverse);
+    background: linear-gradient(
+        120deg,
+        var(--color-bg-darker) 0%,
+        var(--color-brand-primary-dark) 42%,
+        #1f1414 100%
+    );
+    overflow: hidden;
+}
+
+.page-hero::after {
+    content: "";
+    position: absolute;
+    inset: auto -20% -40% auto;
+    width: min(55vw, 28rem);
+    height: min(55vw, 28rem);
+    background: radial-gradient(circle, rgba(196, 150, 42, 0.22) 0%, transparent 68%);
+    pointer-events: none;
+}
+
+.page-hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.page-hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--color-text-inverse);
+    margin-top: var(--space-4);
+}
+
+.page-hero__subtitle {
+    margin-top: var(--space-4);
+    font-size: clamp(var(--text-base), 1.5vw, var(--text-xl));
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 40rem;
+}
+
+/* Default page template body */
+.page-content {
+    padding-block: var(--space-20);
+    background: var(--color-bg-white);
+}
+
+.page-content__inner {
+    max-width: 48rem;
+    margin-inline: auto;
+}
+
+.page-content__inner.entry-content > * + * {
+    margin-top: var(--space-5);
+}
+
+.page-content__inner.entry-content h2,
+.page-content__inner.entry-content h3 {
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-4);
+}
+
+.page-content__inner.entry-content ul,
+.page-content__inner.entry-content ol {
+    padding-left: 1.25rem;
+    list-style: disc;
+}
+
+.page-content__inner.entry-content ol {
+    list-style: decimal;
+}
+
+.page-content__inner.entry-content li + li {
+    margin-top: var(--space-2);
+}

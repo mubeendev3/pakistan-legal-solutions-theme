@@ -37,12 +37,21 @@ function pls_enqueue_scripts(): void {
         [ 'in_footer' => true, 'strategy' => 'defer' ]
     );
     
-    add_filter( 'script_loader_tag', static function ( string $tag, string $handle ): string {
-        if ( in_array( $handle, [ 'pls-main', 'pls-contact' ], true ) ) {
-            return str_replace( '<script ', '<script type="module" ', $tag, 1 );
-        }
-        return $tag;
-    }, 10, 2 );
+    add_filter(
+        'script_loader_tag',
+        static function ( string $tag, string $handle ): string {
+            if ( ! in_array( $handle, [ 'pls-main', 'pls-contact' ], true ) ) {
+                return $tag;
+            }
+            if ( str_contains( $tag, 'type="module"' ) || str_contains( $tag, "type='module'" ) ) {
+                return $tag;
+            }
+            $filtered = preg_replace( '/<script\b/i', '<script type="module"', $tag, 1 );
+            return is_string( $filtered ) ? $filtered : $tag;
+        },
+        10,
+        2
+    );
 
     // Pass PHP data to JavaScript (AJAX URL, nonce, etc.)
     wp_localize_script( 'pls-main', 'plsData', [
@@ -54,7 +63,8 @@ function pls_enqueue_scripts(): void {
     ] );
 
     // Page-specific scripts (only load where needed)
-    if ( is_page_template( 'template-contact.php' ) ) {
+    $is_contact_page = is_page_template( 'template-contact.php' ) || is_page( 'contact' );
+    if ( $is_contact_page ) {
         wp_enqueue_script(
             'pls-contact',
             PLS_ASSETS . '/js/modules/contact-form.js',
@@ -91,7 +101,10 @@ function pls_preload_resources(): void {
     if ( is_front_page() ) {
         echo '<link rel="preload" as="image" href="' . esc_url( PLS_ASSETS . '/images/hero-bg.jpg' ) . '" fetchpriority="high">' . "\n";
     }
-    // Preload primary font
-    echo '<link rel="preload" as="font" type="font/woff2" href="' . esc_url( PLS_ASSETS . '/fonts/inter-400.woff2' ) . '" crossorigin>' . "\n";
+    // Preload self-hosted primary font (only when the file exists).
+    $inter_woff2 = PLS_DIR . '/assets/fonts/inter-400.woff2';
+    if ( file_exists( $inter_woff2 ) ) {
+        echo '<link rel="preload" as="font" type="font/woff2" href="' . esc_url( PLS_ASSETS . '/fonts/inter-400.woff2' ) . '" crossorigin>' . "\n";
+    }
 }
 add_action( 'wp_head', 'pls_preload_resources', 2 );

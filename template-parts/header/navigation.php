@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
         'menu_class'      => 'primary-nav__list',
         'container'       => false,
         'depth'           => 2,
-        'fallback_cb'     => false,
+        'fallback_cb'     => 'pls_primary_nav_fallback',
         'items_wrap'      => '<ul id="%1$s" class="%2$s" role="menubar">%3$s</ul>',
     ] );
     ?>

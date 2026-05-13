@@ -37,7 +37,7 @@ export function initNavigation() {
         menu.classList.add( 'is-open' );
         menu.setAttribute( 'aria-hidden', 'false' );
         toggle.setAttribute( 'aria-expanded', 'true' );
-        overlay.classList.add( 'is-visible' );
+        overlay?.classList.add( 'is-visible' );
         document.body.style.overflow = 'hidden'; // Lock scroll
         closeBtn?.focus();
     }
@@ -46,7 +46,7 @@ export function initNavigation() {
         menu.classList.remove( 'is-open' );
         menu.setAttribute( 'aria-hidden', 'true' );
         toggle.setAttribute( 'aria-expanded', 'false' );
-        overlay.classList.remove( 'is-visible' );
+        overlay?.classList.remove( 'is-visible' );
         document.body.style.overflow = '';
         toggle.focus();
     }

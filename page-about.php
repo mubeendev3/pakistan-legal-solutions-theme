@@ -1,9 +1,10 @@
 <?php
 /**
- * Template Name: About Page
+ * Theme template for a Page with slug "about".
  *
- * Use this template on any Page (any slug). For a Page whose slug is `about`,
- * you can also rely on `page-about.php` without selecting a template.
+ * WordPress loads this automatically when a published Page exists at `/about/`
+ * and no other template overrides it. You do not need to pick "About Page"
+ * in Page Attributes — but you still must create the Page in the admin.
  *
  * @package PakistanLegalSolutions
  */

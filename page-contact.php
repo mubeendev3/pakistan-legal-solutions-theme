@@ -1,8 +1,9 @@
 <?php
 /**
- * Template Name: Contact Page
+ * Theme template for a Page with slug "contact".
  *
- * Use on any Page. For slug `contact`, `page-contact.php` also applies automatically.
+ * WordPress loads this when a published Page exists at `/contact/`. You do not
+ * need to select "Contact Page" in Page Attributes for that slug.
  *
  * @package PakistanLegalSolutions
  */

@@ -42,7 +42,7 @@
                         'menu_class'     => 'site-footer__nav',
                         'container'      => false,
                         'depth'          => 1,
-                        'fallback_cb'    => false,
+                        'fallback_cb'    => 'pls_footer_nav_fallback',
                     ] );
                     ?>
                 </div>
@@ -56,7 +56,7 @@
                         'menu_class'     => 'site-footer__nav',
                         'container'      => false,
                         'depth'          => 1,
-                        'fallback_cb'    => false,
+                        'fallback_cb'    => 'pls_footer_nav_fallback',
                     ] );
                     ?>
                 </div>
@@ -68,7 +68,7 @@
                         <p>
                             <?php echo pls_icon( 'map-pin' ); ?>
                             2nd Floor, Commerce Centre<br>
-                            MM Alam Road, Gulberg III<br>
+                            MM Alam Road, Gulberg IV<br>
                             Lahore 54660, Pakistan
                         </p>
                         <p>
@@ -77,7 +77,7 @@
                         </p>
                         <p>
                             <?php echo pls_icon( 'mail' ); ?>
-                            <a href="mailto:info@pakistanlegalsolution.com">info@pakistanlegalsolution.com</a>
+                            <a href="mailto:info@pakistanlegalsolutions.com">info@pakistanlegalsolutions.com</a>
                         </p>
                         <p>
                             <?php echo pls_icon( 'clock' ); ?>
@@ -91,20 +91,29 @@
     </div><!-- .site-footer__main -->
 
     <div class="site-footer__bottom">
-        <div class="container">
-            <p class="site-footer__copy">
-                &copy; <?php echo esc_html( gmdate( 'Y' ) ); ?>
-                <?php bloginfo( 'name' ); ?>.
-                <?php esc_html_e( 'All rights reserved.', 'pakistan-legal-solutions' ); ?>
+        <div class="container site-footer__bottom-inner">
+            <div class="site-footer__bottom-row">
+                <p class="site-footer__copy">
+                    &copy; <?php echo esc_html( gmdate( 'Y' ) ); ?>
+                    <?php bloginfo( 'name' ); ?>.
+                    <?php esc_html_e( 'All rights reserved.', 'pakistan-legal-solutions' ); ?>
+                </p>
+                <nav class="site-footer__legal" aria-label="<?php esc_attr_e( 'Legal links', 'pakistan-legal-solutions' ); ?>">
+                    <a href="<?php echo esc_url( home_url( '/privacy-policy' ) ); ?>">
+                        <?php esc_html_e( 'Privacy Policy', 'pakistan-legal-solutions' ); ?>
+                    </a>
+                    <a href="<?php echo esc_url( home_url( '/disclaimer' ) ); ?>">
+                        <?php esc_html_e( 'Disclaimer', 'pakistan-legal-solutions' ); ?>
+                    </a>
+                </nav>
+            </div>
+            <p class="site-footer__credits">
+                <?php esc_html_e( 'Website developed by', 'pakistan-legal-solutions' ); ?>
+                <a href="<?php echo esc_url( 'https://www.linkedin.com/in/mubeendeveloper/' ); ?>"
+                   class="site-footer__credits-link"
+                   target="_blank"
+                   rel="noopener noreferrer"><?php esc_html_e( 'Mubeen Mehmood', 'pakistan-legal-solutions' ); ?></a>
             </p>
-            <nav class="site-footer__legal" aria-label="<?php esc_attr_e( 'Legal links', 'pakistan-legal-solutions' ); ?>">
-                <a href="<?php echo esc_url( home_url( '/privacy-policy' ) ); ?>">
-                    <?php esc_html_e( 'Privacy Policy', 'pakistan-legal-solutions' ); ?>
-                </a>
-                <a href="<?php echo esc_url( home_url( '/disclaimer' ) ); ?>">
-                    <?php esc_html_e( 'Disclaimer', 'pakistan-legal-solutions' ); ?>
-                </a>
-            </nav>
         </div>
     </div><!-- .site-footer__bottom -->
 

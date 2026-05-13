@@ -1,2 +1,376 @@
-﻿/* Scaffold — styles pending. */
+﻿/* ── Hero ─────────────────────────────────────────────────── */
+.hero {
+    position: relative;
+    min-height: min(92vh, 52rem);
+    display: flex;
+    align-items: stretch;
+    color: var(--color-text-inverse);
+}
 
+.hero__bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.hero__bg-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.02);
+}
+
+.hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        rgba(17, 17, 17, 0.92) 0%,
+        rgba(92, 16, 16, 0.78) 42%,
+        rgba(17, 17, 17, 0.55) 100%
+    );
+}
+
+.hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    padding-block: var(--space-24);
+}
+
+.hero__text {
+    max-width: 40rem;
+}
+
+.hero__eyebrow {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-brand-gold);
+    margin-bottom: var(--space-5);
+}
+
+.hero__heading {
+    font-size: var(--text-hero);
+    line-height: 1.08;
+    color: var(--color-text-inverse);
+    margin-bottom: var(--space-6);
+}
+
+.hero__heading span {
+    display: block;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.hero__subheading {
+    font-size: clamp(var(--text-base), 2vw, var(--text-lg));
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 36rem;
+    margin-bottom: var(--space-8);
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-bottom: var(--space-12);
+}
+
+.hero__stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    padding-top: var(--space-8);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+@media (min-width: 640px) {
+    .hero__stats {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-4);
+    }
+}
+
+.hero__stat-number {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--color-brand-gold);
+    line-height: 1.1;
+}
+
+.hero__stat-label {
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* ── Trust bar ─────────────────────────────────────────────── */
+.trust-bar {
+    background: var(--color-bg-dark);
+    color: rgba(255, 255, 255, 0.88);
+    padding-block: var(--space-6);
+    border-bottom: 3px solid var(--color-brand-gold);
+}
+
+.trust-bar__grid {
+    display: grid;
+    gap: var(--space-6);
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .trust-bar__grid {
+        grid-template-columns: repeat(3, 1fr);
+        text-align: left;
+    }
+}
+
+.trust-bar__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.trust-bar__title {
+    font-weight: 700;
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-brand-gold);
+}
+
+.trust-bar__text {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.55;
+}
+
+/* ── Practice areas (home) ─────────────────────────────────── */
+.home-pa {
+    background: var(--color-bg-cream);
+}
+
+.home-pa__grid {
+    display: grid;
+    gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+    .home-pa__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .home-pa__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ── Why choose us ─────────────────────────────────────────── */
+.why-us {
+    background: var(--color-bg-white);
+}
+
+.why-us__grid {
+    display: grid;
+    gap: var(--space-8);
+}
+
+@media (min-width: 768px) {
+    .why-us__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.why-us__card {
+    padding: var(--space-8);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+    background: linear-gradient(180deg, var(--color-bg-white) 0%, var(--color-bg-cream) 100%);
+    box-shadow: var(--shadow-sm);
+}
+
+.why-us__icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-md);
+    background: var(--color-brand-primary);
+    color: var(--color-text-inverse);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-5);
+}
+
+.why-us__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+}
+
+.why-us__text {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+}
+
+/* ── Team strip ────────────────────────────────────────────── */
+.home-team {
+    background: var(--color-bg-light);
+}
+
+.home-team__grid {
+    display: grid;
+    gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+    .home-team__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .home-team__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ── Testimonials ──────────────────────────────────────────── */
+.home-testimonials {
+    background: var(--color-bg-white);
+}
+
+.home-testimonials__grid {
+    display: grid;
+    gap: var(--space-6);
+}
+
+@media (min-width: 900px) {
+    .home-testimonials__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ── CTA banner ────────────────────────────────────────────── */
+.cta-banner {
+    position: relative;
+    padding-block: var(--space-20);
+    background: linear-gradient(135deg, var(--color-brand-primary-dark) 0%, var(--color-brand-primary) 55%, #2a1212 100%);
+    color: var(--color-text-inverse);
+    overflow: hidden;
+}
+
+.cta-banner::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10% auto auto;
+    width: min(50vw, 28rem);
+    height: min(50vw, 28rem);
+    background: radial-gradient(circle, rgba(196, 150, 42, 0.35) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.cta-banner__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+    .cta-banner__inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.cta-banner__title {
+    font-family: var(--font-heading);
+    font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+    max-width: 20ch;
+}
+
+.cta-banner__text {
+    margin-top: var(--space-3);
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 36rem;
+    line-height: 1.6;
+}
+
+.cta-banner__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    flex-shrink: 0;
+}
+
+/* ── Contact strip ─────────────────────────────────────────── */
+.contact-strip {
+    background: var(--color-bg-dark);
+    color: rgba(255, 255, 255, 0.9);
+    padding-block: var(--space-10);
+}
+
+.contact-strip__grid {
+    display: grid;
+    gap: var(--space-8);
+    align-items: center;
+}
+
+@media (min-width: 900px) {
+    .contact-strip__grid {
+        grid-template-columns: 1.2fr 1fr 1fr;
+    }
+}
+
+.contact-strip__heading {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-3);
+}
+
+.contact-strip__lead {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    max-width: 28rem;
+}
+
+.contact-strip__block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+}
+
+.contact-strip__label {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: var(--text-xs);
+    color: var(--color-brand-gold);
+}
+
+.contact-strip a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.contact-strip a:hover {
+    color: var(--color-brand-gold);
+}
