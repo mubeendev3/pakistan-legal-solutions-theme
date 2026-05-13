@@ -1,0 +1,33 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (if you use any build tools later)
+node_modules/
+npm-debug.log*
+
+# Build output
+dist/
+build/
+
+# Environment files (NEVER commit these)
+.env
+.env.local
+*.env
+
+# WordPress specific (these live on the server, not in your theme)
+wp-config.php
+
+# Logs
+*.log
+error_log
+
+# Cache
+.cache/
