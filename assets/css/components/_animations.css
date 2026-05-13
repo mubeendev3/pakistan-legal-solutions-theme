@@ -1,0 +1,291 @@
+/**
+ * Scroll reveals, page transitions, scroll progress.
+ * Motion: transforms + opacity. Respects prefers-reduced-motion.
+ */
+
+:root {
+    --pls-scroll: 0;
+    --pls-reveal-duration: 0.72s;
+    --pls-reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Scroll progress (JS sets --pls-scroll 0–1) ───────────────── */
+.pls-scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: calc(var(--z-sticky, 200) + 50);
+    pointer-events: none;
+    overflow: hidden;
+    background: transparent;
+}
+
+.pls-scroll-progress__bar {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+        90deg,
+        var(--color-brand-primary-dark) 0%,
+        var(--color-brand-primary) 50%,
+        #6b1414 100%
+    );
+    transform: scaleX(var(--pls-scroll, 0));
+    transform-origin: left center;
+    will-change: transform;
+    transition: transform 0.12s var(--pls-reveal-ease);
+}
+
+body.admin-bar .pls-scroll-progress {
+    top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar .pls-scroll-progress {
+        top: 46px;
+    }
+}
+
+/* ── Page transition (main.js toggles body classes) ─────────── */
+.site-main {
+    opacity: 1;
+    transition: opacity 0.3s var(--pls-reveal-ease);
+}
+
+body.pls-page-exit .site-main {
+    opacity: 0;
+    transition-duration: 0.2s;
+}
+
+body.pls-page-enter .site-main {
+    opacity: 0;
+    animation: pls-page-fade-in 0.3s var(--pls-reveal-ease) forwards;
+}
+
+@keyframes pls-page-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ── Scroll-triggered reveals (IntersectionObserver → .is-animated) */
+[data-animate] {
+    --pls-reveal-delay: 0ms;
+}
+
+[data-animate="fade-up"]:not(.is-animated) {
+    opacity: 0;
+    transform: translate3d(0, 1.25rem, 0);
+}
+
+[data-animate="fade-up"].is-animated {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition:
+        opacity var(--pls-reveal-duration) var(--pls-reveal-ease) var(--pls-reveal-delay, 0ms),
+        transform var(--pls-reveal-duration) var(--pls-reveal-ease) var(--pls-reveal-delay, 0ms);
+}
+
+[data-animate="fade-left"]:not(.is-animated) {
+    opacity: 0;
+    transform: translate3d(-1.25rem, 0, 0);
+}
+
+[data-animate="fade-left"].is-animated {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition:
+        opacity var(--pls-reveal-duration) var(--pls-reveal-ease) var(--pls-reveal-delay, 0ms),
+        transform var(--pls-reveal-duration) var(--pls-reveal-ease) var(--pls-reveal-delay, 0ms);
+}
+
+/* ── Hero load motion (above the fold; subtle stagger) ─────── */
+@media (prefers-reduced-motion: no-preference) {
+    .hero__text .hero__eyebrow,
+    .hero__text .hero__heading,
+    .hero__text .hero__subheading,
+    .hero__text .hero__actions,
+    .hero__text .hero__stats {
+        opacity: 0;
+        transform: translate3d(0, 0.75rem, 0);
+        animation: pls-hero-reveal 0.85s var(--pls-reveal-ease) forwards;
+    }
+
+    .hero__text .hero__eyebrow {
+        animation-delay: 0.08s;
+    }
+
+    .hero__text .hero__heading {
+        animation-delay: 0.16s;
+    }
+
+    .hero__text .hero__subheading {
+        animation-delay: 0.26s;
+    }
+
+    .hero__text .hero__actions {
+        animation-delay: 0.36s;
+    }
+
+    .hero__text .hero__stats {
+        animation-delay: 0.46s;
+    }
+}
+
+@keyframes pls-hero-reveal {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 0.75rem, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* ── Header intro (logo + nav stagger) ─────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+    .site-header__logo {
+        opacity: 0;
+        animation: pls-logo-fade 0.5s var(--pls-reveal-ease) forwards;
+    }
+
+    @keyframes pls-logo-fade {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .primary-nav__list > .menu-item > a {
+        opacity: 0;
+        transform: translate3d(0, -0.5rem, 0);
+        animation: pls-nav-drop 0.55s var(--pls-reveal-ease) forwards;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(1) > a {
+        animation-delay: 0.12s;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(2) > a {
+        animation-delay: 0.17s;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(3) > a {
+        animation-delay: 0.22s;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(4) > a {
+        animation-delay: 0.27s;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(5) > a {
+        animation-delay: 0.32s;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(6) > a {
+        animation-delay: 0.37s;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(7) > a {
+        animation-delay: 0.42s;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(8) > a {
+        animation-delay: 0.47s;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(9) > a {
+        animation-delay: 0.52s;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(10) > a {
+        animation-delay: 0.57s;
+    }
+
+    .primary-nav__list > .menu-item:nth-child(n + 11) > a {
+        animation-delay: 0.62s;
+    }
+
+    @keyframes pls-nav-drop {
+        from {
+            opacity: 0;
+            transform: translate3d(0, -0.5rem, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    .site-header__cta .btn {
+        animation: pls-header-cta-pulse 4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    }
+
+    .site-header__cta .btn:hover,
+    .site-header__cta .btn:focus-visible {
+        animation: none;
+        transform: translateY(-1px) scale(1);
+    }
+
+    @keyframes pls-header-cta-pulse {
+        0%,
+        88%,
+        100% {
+            transform: scale(1);
+        }
+        94% {
+            transform: scale(1.03);
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pls-scroll-progress__bar {
+        transition: none;
+    }
+
+    body.pls-page-enter .site-main {
+        animation: none;
+        opacity: 1;
+    }
+
+    [data-animate]:not(.is-animated),
+    [data-animate].is-animated {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .hero__text .hero__eyebrow,
+    .hero__text .hero__heading,
+    .hero__text .hero__subheading,
+    .hero__text .hero__actions,
+    .hero__text .hero__stats {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+
+    .site-header__logo {
+        opacity: 1;
+        animation: none;
+    }
+
+    .primary-nav__list > .menu-item > a {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+
+    .site-header__cta .btn {
+        animation: none;
+    }
+}

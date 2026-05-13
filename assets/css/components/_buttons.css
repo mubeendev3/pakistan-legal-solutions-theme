@@ -39,6 +39,57 @@
     box-shadow: var(--shadow-md);
 }
 
+/* Subtle shine on hover (transform + opacity only on pseudo) */
+.btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    left: -30%;
+    width: 45%;
+    background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.22) 45%,
+        transparent 90%
+    );
+    transform: translate3d(-120%, 0, 0) skewX(-12deg);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.35s ease;
+}
+
+.btn:hover::after,
+.btn:focus-visible::after {
+    opacity: 1;
+    transform: translate3d(320%, 0, 0) skewX(-12deg);
+}
+
+.btn--outline-white::after {
+    background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.35) 45%,
+        transparent 90%
+    );
+}
+
+.btn--outline::after {
+    background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 45%,
+        transparent 90%
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn::after {
+        display: none;
+    }
+}
+
 /* Gold: For CTA sections */
 .btn--gold {
     background-color: var(--color-brand-gold);
@@ -51,6 +102,15 @@
     border-color: var(--color-brand-gold-dark);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
+}
+
+.btn--gold::after {
+    background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.45) 45%,
+        transparent 90%
+    );
 }
 
 /* Outline: Secondary action */

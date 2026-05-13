@@ -37,7 +37,7 @@ $static = [
 
 <section class="home-testimonials section" aria-labelledby="home-testimonials-heading">
     <div class="container">
-        <header class="section-header">
+        <header class="section-header" data-animate="fade-up">
             <p class="section-eyebrow"><?php esc_html_e( 'Client voices', 'pakistan-legal-solutions' ); ?></p>
             <h2 class="section-title" id="home-testimonials-heading"><?php esc_html_e( 'Trusted by clients who expect excellence', 'pakistan-legal-solutions' ); ?></h2>
             <p class="section-subtitle"><?php esc_html_e( 'A snapshot of the experience clients describe after working with our team.', 'pakistan-legal-solutions' ); ?></p>
@@ -46,15 +46,28 @@ $static = [
         <div class="home-testimonials__grid">
             <?php if ( $query->have_posts() ) : ?>
                 <?php
+                $pls_ti = 0;
                 while ( $query->have_posts() ) :
                     $query->the_post();
-                    get_template_part( 'template-parts/components/testimonial-card' );
+                    get_template_part(
+                        'template-parts/components/testimonial-card',
+                        null,
+                        [
+                            'animate_delay' => ( $pls_ti + 1 ) * 100,
+                        ]
+                    );
+                    ++$pls_ti;
                 endwhile;
                 wp_reset_postdata();
                 ?>
             <?php else : ?>
-                <?php foreach ( $static as $row ) : ?>
-                    <article class="testimonial-card">
+                <?php
+                $pls_ti = 0;
+                foreach ( $static as $row ) :
+                    $pls_td = ( $pls_ti + 1 ) * 100;
+                    ++$pls_ti;
+                    ?>
+                    <article class="testimonial-card" data-animate="fade-up" data-delay="<?php echo esc_attr( (string) $pls_td ); ?>">
                         <blockquote class="testimonial-card__quote"><?php echo esc_html( $row['quote'] ); ?></blockquote>
                         <p class="testimonial-card__author"><?php echo esc_html( $row['author'] ); ?></p>
                         <p class="testimonial-card__meta"><?php echo esc_html( $row['meta'] ); ?></p>

@@ -44,19 +44,19 @@
 
             <div class="hero__stats" aria-label="<?php esc_attr_e( 'Firm statistics', 'pakistan-legal-solutions' ); ?>">
                 <div class="hero__stat">
-                    <span class="hero__stat-number">15+</span>
+                    <span class="hero__stat-number" data-pls-counter data-target="15" data-suffix="+">15+</span>
                     <span class="hero__stat-label"><?php esc_html_e( 'Years Experience', 'pakistan-legal-solutions' ); ?></span>
                 </div>
                 <div class="hero__stat">
-                    <span class="hero__stat-number">500+</span>
+                    <span class="hero__stat-number" data-pls-counter data-target="500" data-suffix="+">500+</span>
                     <span class="hero__stat-label"><?php esc_html_e( 'Cases Won', 'pakistan-legal-solutions' ); ?></span>
                 </div>
                 <div class="hero__stat">
-                    <span class="hero__stat-number">6</span>
+                    <span class="hero__stat-number" data-pls-counter data-target="6" data-suffix="">6</span>
                     <span class="hero__stat-label"><?php esc_html_e( 'Practice Areas', 'pakistan-legal-solutions' ); ?></span>
                 </div>
                 <div class="hero__stat">
-                    <span class="hero__stat-number">100%</span>
+                    <span class="hero__stat-number" data-pls-counter data-target="100" data-suffix="%">100%</span>
                     <span class="hero__stat-label"><?php esc_html_e( 'Client First', 'pakistan-legal-solutions' ); ?></span>
                 </div>
             </div>

@@ -8,12 +8,13 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-$pa_title = $pa_title ?? '';
-$pa_url   = $pa_url ?? '#';
-$pa_lines = is_array( $pa_lines ?? null ) ? $pa_lines : [];
-$pa_icon  = $pa_icon ?? 'civil-law';
+$pa_title         = $pa_title ?? '';
+$pa_url           = $pa_url ?? '#';
+$pa_lines         = is_array( $pa_lines ?? null ) ? $pa_lines : [];
+$pa_icon          = $pa_icon ?? 'civil-law';
+$pa_animate_delay = isset( $pa_animate_delay ) ? (int) $pa_animate_delay : 0;
 ?>
-<article class="pa-card practice-card">
+<article class="pa-card practice-card" data-animate="fade-up"<?php echo $pa_animate_delay > 0 ? ' data-delay="' . esc_attr( (string) $pa_animate_delay ) . '"' : ''; ?>>
     <div class="pa-card__icon" aria-hidden="true">
         <?php pls_the_pa_icon( $pa_icon ); ?>
     </div>

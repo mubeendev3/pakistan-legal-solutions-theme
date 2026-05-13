@@ -18,7 +18,7 @@ $query = new WP_Query(
 
 <section class="home-team section section--sm" aria-labelledby="home-team-heading">
     <div class="container">
-        <header class="section-header">
+        <header class="section-header" data-animate="fade-up">
             <p class="section-eyebrow"><?php esc_html_e( 'Our people', 'pakistan-legal-solutions' ); ?></p>
             <h2 class="section-title" id="home-team-heading"><?php esc_html_e( 'Experienced advocates you can talk to', 'pakistan-legal-solutions' ); ?></h2>
             <p class="section-subtitle"><?php esc_html_e( 'A collaborative bench with deep courtroom and boardroom experience—aligned around one goal: your outcome.', 'pakistan-legal-solutions' ); ?></p>
@@ -27,9 +27,17 @@ $query = new WP_Query(
         <?php if ( $query->have_posts() ) : ?>
             <div class="home-team__grid">
                 <?php
+                $pls_team_i = 0;
                 while ( $query->have_posts() ) :
                     $query->the_post();
-                    get_template_part( 'template-parts/components/attorney-card' );
+                    get_template_part(
+                        'template-parts/components/attorney-card',
+                        null,
+                        [
+                            'animate_delay' => ( $pls_team_i + 1 ) * 100,
+                        ]
+                    );
+                    ++$pls_team_i;
                 endwhile;
                 wp_reset_postdata();
                 ?>

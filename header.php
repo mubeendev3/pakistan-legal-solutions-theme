@@ -27,6 +27,10 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<div class="pls-scroll-progress" id="pls-scroll-progress" aria-hidden="true">
+    <span class="pls-scroll-progress__bar"></span>
+</div>
+
 <a class="skip-link" href="#main-content">
     <?php esc_html_e( 'Skip to main content', 'pakistan-legal-solutions' ); ?>
 </a>
